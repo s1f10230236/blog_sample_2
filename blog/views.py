@@ -8,4 +8,10 @@ def update(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
 def hello(request):
-    return render(request, 'blog/hello.html')
+	data={
+		"name":"Alice",
+		"weather_detail":["Temperature:23℃","Humidity:40%","Wind:5m/s"],
+		"isGreatFortune":True,
+		"fortune":"Great Fortune!"
+	}
+	return render(request, 'blog/hello.html',data)
