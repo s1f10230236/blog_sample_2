@@ -22,8 +22,13 @@
     </form>
 
     <br>
-
-    <p>No article.</p>
+    {%for article in articles%}
+    <a href="{%url 'detail' airticle.id%}">{{article.title}}</a>
+    <small>[{{airticle.posted_at}}]</small>
+    <div>
+      {{article.body|linebreaksbr}}
+    </div>
+    {%endfor%}
 
   </body>
 </html>
