@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.utils import timezone
 import random
-from blog.models import Article
+from blog.models import Article,Comment
 
 def index(request):
 	if request.method=='POST':
@@ -23,8 +23,12 @@ def detail(request,article_id):
 		article=Article.objects.get(pk=article_id)
 	except Article.DoesNotExist:
 		raise Http404('Article does not exist')
+	if request.method=='POST':
+		comment=Comment(article=article,text=request.POST['text'])
+		comment.save()
 	context={
-		'article':article
+		'article':article,
+		'comment':article.comments.oder_by('-posted_at')
 	}
 	return render(request,'blog/detail.html',context)
 
