@@ -24,12 +24,21 @@
         <button type="submit">Submit</button>
       </div>
     </form>
-
     <br>
+    
+    <div>
+      <a href="{%url 'index'%}?sort=date">Sort by Date</a>|
+      <a href="{%url 'index'%}?sort=like">Sort by Like</a>
+    </div>
     {%for article in articles%}
     <div class="text">
       <h2><a href="{%url 'detail' airticle.id%}">{{article.title}}</a></h2>
       <small>[{{airticle.posted_at}}]</small>
+      <div>
+        <a href="{%url 'like' article.id%}">
+          Like:{{article.like}}
+        </a>
+      </div>
       <div>
       {{article.body|linebreaksbr}}
     </div>

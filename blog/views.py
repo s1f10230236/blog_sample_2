@@ -10,6 +10,13 @@ def index(request):
 		article=Article(title=request.POST['title'],body=request.POST['text'])
 		article.save()
 		return redirect(detail,article.id)
+	if ('sort' in request.GET):
+		if request.GET['sort']=='like':
+			articles=Article.objects.order_by('-like')
+		else:
+			articles=Article.objects.order_by('-posted_at')
+	else:
+		articles=Article.objects.order_by('-posted_at')
 	context = {
         "articles":Article.objects.all()
     }
@@ -63,3 +70,13 @@ def hello(request):
 		"fortune":"Great Fortune!"
 	}
 	return render(request, 'blog/hello.html',data)
+
+def like(request,article_id):
+	try:
+		article=Article.objects.get(pk=article_id)
+		article.like+=1
+		article.save()
+	except Article.DoesNotExist:
+		raise Http404("Article does not exist")
+	
+	return redirect(detail,article_id)
