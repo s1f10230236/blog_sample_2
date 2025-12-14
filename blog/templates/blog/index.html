@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link href="{%static 'blog/css/default.css'%}" rel="stylesheet">
+    <script type="text/javascript" src="{%static 'blog/js/index.js'%}"></script>
   </head>
   <body>
     <div id="header">
@@ -35,8 +36,8 @@
       <h2><a href="{%url 'detail' airticle.id%}">{{article.title}}</a></h2>
       <small>[{{airticle.posted_at}}]</small>
       <div>
-        <a href="{%url 'like' article.id%}">
-          Like:{{article.like}}
+        <a onclick="like({{article.id}});">
+          Like:<span id="like{{article.id}}">{{<article>.like}}</article></span>
         </a>
       </div>
       <div>
